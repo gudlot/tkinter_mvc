@@ -74,6 +74,7 @@ This MVC patterns allows for separate unit testing. Timewise, I did not manage t
   
      3. Visualize progress (e.g., how long until done) during the scan<br>
     This would also require threading, I think. `tkinter` has an `update` function. I have not tried it out. My GUI version can show the progress in the command line based on your `show_progress`.
+    I tried to send updated motor values to my view motor label, but tkinter stopped after one iteration. I assume this requires the implementation of the `update` function.
 
     4. Progress updates via other channels (browser/SMS/email/...)
     Email option probably via `smtplib` library.
