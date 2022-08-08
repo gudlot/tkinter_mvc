@@ -161,7 +161,7 @@ class Controller():
             # I think this is where you need threading
 
         #TODO: 
-        # move motore per step and read out at every step
+        # move motor per step and read out at every step
         # if I had better access to the scan function, this whole function would be nicer 
 
 
