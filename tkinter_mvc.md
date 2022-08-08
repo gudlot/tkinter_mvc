@@ -14,4 +14,16 @@
 - Visualize a camera instead of a diode
     <br> [x] Done 
 
-## 
+<table>
+  <tr>
+    <td>1D scan with diodes</td>
+     <td>1D scan with a camera</td>
+
+  </tr>
+  <tr>
+    <td valign="top"><img src="1D_scan_GUI.png"></td>
+    <td valign="top"><img src="1D_cam_scan_GUI.png"></td>
+  </tr>
+ </table>
+
+ 
