@@ -149,14 +149,15 @@ class View():
                 print(f"Diode {diode_name} is selected.")
 
         diodes_cb_values=[v.get() for v in self.cbVariables.values()]
-        print(diodes_cb_values)
+        print(f"Diode counter selection: {diodes_cb_values}")
+     
 
         if all([ w == 0 for w in diodes_cb_values]):
             self.no_diode_selected()
             return 
         else:
             all_selected_diodes={k:v for (k,v) in self.cbVariables.items() if v.get() == 1}
-            print(all_selected_diodes, "type is", type(all_selected_diodes))
+            
         # returns a dict of selected diodes
         return all_selected_diodes
 
