@@ -77,13 +77,14 @@ I implemented the scan method via `scan_iter`. It works, but using `scan` or `sc
     - An event queue. View pushes events into this queue and the controller on a different thread pops them/listens to them.
     - In general threading.<br>
     - The `scan` function had this callback option implemented.
-    - Writing a log file and visualises this? But probably the worst option.<br>
-    <br>
- 
+    - Writing a log file and visualises this? But probably the worst option.
+    
+    &nbsp;<br>
+
 3. Visualize progress (e.g., how long until done) during the scan<br>
     This would also require threading, I think. `tkinter` has an `update` function. I have not tried it out. My GUI version can show the progress in the command line based on your `show_progress`.
     I tried to send updated motor values to my view motor label, but tkinter stopped after one iteration. I assume this requires the implementation of the `update` function.
-
+&nbsp;<br>
 4. Progress updates via other channels (browser/SMS/email/...)<br>
     Email option probably via `smtplib` library.
     
