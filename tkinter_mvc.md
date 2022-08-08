@@ -27,6 +27,13 @@
   </tr>
  </table>
 
+## How to start the GUI? 
+
+```py
+python controller.py
+```
+
+
 ## How did I solve the task?
 ---
 
