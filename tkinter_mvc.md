@@ -32,7 +32,7 @@
 ```py
 python controller.py
 ```
-
+My requirements are listed in requirements.txt.
 
 ## How did I solve the task?
 ---
