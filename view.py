@@ -1,5 +1,3 @@
-from toydaq import Motor, Diode, Camera, scan_iter
-
 
 import tkinter as tk
 from tkinter import ttk
@@ -10,8 +8,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib import cm
 
 from matplotlib import pyplot as plt
-#from threading import Thread
-from tqdm import tqdm
+
 import numpy as np
 
 
@@ -338,6 +335,10 @@ class MotorPanel():
         #lets create a push button
         self.show_scan_settingsButton=ttk.Button(self.frame4,text="Show scan settings")
         self.show_scan_settingsButton.grid(row=2,columnspan=len(self.motor_input_label))
+
+        #lets create a destroy button
+        self.terminateButton=ttk.Button(self.frame4, text="Exit GUI", command=lambda: self.guicontrol._master.destroy() )
+        self.terminateButton.grid(row=3, columnspan=len(self.motor_input_label))
 
 
     def onValidate(self, P, s, S, W):
