@@ -1,15 +1,6 @@
-from toydaq import Motor, Diode, Camera, scan_iter
+from toydaq import scan_iter
 
 
-import tkinter as tk
-from tkinter import ttk
-from tkinter.messagebox import *
-
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from matplotlib import cm
-
-from matplotlib import pyplot as plt
 #from threading import Thread
 from tqdm import tqdm
 import numpy as np
