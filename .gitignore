@@ -2,4 +2,4 @@
 ./toydaq/__pycache__/tricks.cpython-310.pyc
 ./toydaq/__pycache__/*.pyc
 *.pyc
-/toydaq/__pycache__/*
+/toydaq/__pycache__/*toydaq/__pycache__/__init__.cpython-310.pyc toydaq/__pycache__/__init__.cpython-39.pyc toydaq/__pycache__/devices.cpython-310.pyc toydaq/__pycache__/devices.cpython-39.pyc toydaq/__pycache__/scan.cpython-310.pyc toydaq/__pycache__/tricks.cpython-310.pyc
