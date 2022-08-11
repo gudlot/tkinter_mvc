@@ -72,7 +72,9 @@ class Controller():
     def prepare_1d_scan_settings(self):
         """ Retrieves relevant information for scan and prepapres scan dict for output (1D scan)"""
 
+        #Self.view.retrieve_scan_settings() returns a tuple with  'toydaq.devices.Motor', and a dict of tk.Var
         mot_selected, scan_values=self.view.retrieve_scan_settings()
+        print('This is scan values' , scan_values)  
 
         #["Start", "Stop", "Stepsize"]
         start= scan_values["Start"].get()
@@ -106,13 +108,14 @@ class Controller():
                 raise ValueError(f"Stepsize is {stepsize}")
         except ValueError as e:
             showwarning(title=f"Stepsize {stepsize}." , message="Choose different Stepsize.") 
-        
-        
+
+
         scan_dict={}
         scan_dict["mot_sel"]=mot_selected
         scan_dict["Start"]=start
         scan_dict["Stop"]=stop
         scan_dict["Stepsize"]=stepsize
+
         return scan_dict
 
     def create_scan_plot(self, event):
@@ -132,17 +135,14 @@ class Controller():
         self.view.ax0.clear()
         self.view.canvas.draw()
 
-
-        # prepare for plot
-        #self.view.modify_1d_plot(self.model.motors[mot_selected], dio_selected)
-        #self.view.modify_1d_plot(mot_selected, dio_selected)
-                  
+        # prepare for plot and for scan             
         x_values=[]
         diode_values = [[] for i in range(0, num_dio_sel)]
 
         # Pseudo exectuition of motor
-        #for pos in scan_iter(self.model.motors[mot_selected], start, stop, stepsize, cb=None, show_progress=False):
-        for pos in scan_iter(scan_dict["mot_sel"], scan_dict["Start"], scan_dict["Stop"], scan_dict["Stepsize"], cb=None, show_progress=True):
+        # Here is the challenge because the scan function modifies the diodes in the a strange way. I go for the moment with the example given in example2.py
+        #scan_iter
+        for step, pos in enumerate(scan_iter(scan_dict["mot_sel"], scan_dict["Start"], scan_dict["Stop"], scan_dict["Stepsize"], cb=None, show_progress=True)):
             
             #save motor positions
             x_values.append(pos)
@@ -155,14 +155,11 @@ class Controller():
             # this is the function that sends data for plotting to view
             self.view.plot_1d_scan(mot_selected=scan_dict["mot_sel"],dio_selected=dio_selected, mot_values=x_values, dio_values=diode_values)
             
-            #nope this does not work?
             #update motor position on GUI:
-            #self.view.update_current_motor_pos(scan_dict["mot_sel"])
-            # I think this is where you need threading
+            self.view.update_current_motor_pos(step, scan_dict["mot_sel"])
+        
+        ## 
 
-        #TODO: 
-        # move motor per step and read out at every step
-        # if I had better access to the scan function, this whole function would be nicer 
 
 
     def motor_selection(self, event):
