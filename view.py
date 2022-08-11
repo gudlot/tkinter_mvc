@@ -117,27 +117,42 @@ class View():
         return self._model.motors[mot_selected]
 
 
-    def update_current_motor_pos(self, mot_selected):
+    def motor_selection(self, event):
+        """ Selects motors on event action """
+        # this method is directly bound to the function, so we can make use of this option
+        mot_selected = event.widget.get()
+        #show the current motor value after selection in the GUI
+        self.view.on_motor_selection(mot_selected)
+
+
+    def update_current_motor_pos(self, step, mot_selected):
         """ Sends current motor information to the label """
-        # The plan was to use this function to show a continuous update of the motor values. But I need threading. Not yet implemented.
-        self.sidepanel.curr_motor_val.set(self._model.motors[mot_selected])
+        # The plan was to use this function to show a continuous update of the motor values. 
+        # We do this with self._master.update()
+
+        self.sidepanel.curr_motor_val.set(f"Step {step}: {mot_selected}")
+        # this updates the GUI while the function runs
+        self._master.update()
 
     def get_motor_selection(self):
         """ Get current motor selection from combobox and return motor """
         try:
-            if self.sidepanel.motor_selCombo.get() == "":  
+            if self.sidepanel.motor_selCombo.get() == "":     #returna a string
                 raise ValueError('No motor selected')
             else:
-                print('Current selected motor ', self.sidepanel.motor_selCombo.get())
+                print('Current selected motor ', self.sidepanel.motor_selCombo.get(), type(self.sidepanel.motor_selCombo.get()))
+
 
                 #returns only the motor name, i.e. str
-                #return self.sidepanel.motor_selCombo.get()
+                #return self.sidepanel.motor_selCombo.get()   #string : MY-TINY-MOTOR 
                 # returns a motor object
-                return self._model.motors[self.sidepanel.motor_selCombo.get()]
-
+                print('get motor selection func will return ', type(self._model.motors[self.sidepanel.motor_selCombo.get()] ))
+                return self._model.motors[self.sidepanel.motor_selCombo.get()]   #returns <class 'toydaq.devices.Motor'>
+                                                                             
         except ValueError as e:
             self.no_motor_selected()
             showwarning(title='Empty motor selection', message="Select motor.")
+            return
         
     def get_diode_selection(self):
         """ Returns which diodes is selected. Two choices: by state or by variable. I went with by variable."""
@@ -182,8 +197,15 @@ class View():
 
     def show_scan_settings(self): 
         """ Current motor, start, stop, stepsize is shown """
-        curr_mot_selected=self.get_motor_selection().name  #str
-        print(f"{curr_mot_selected} is selected.")
+    
+        try:
+            curr_mot_selected=self.get_motor_selection()  #curre_mot_selected of <class 'toydaq.devices.Motor'>
+            if curr_mot_selected is None:
+                raise ValueError("No motor selected")
+        except ValueError as e:
+            return
+
+        print(f"{curr_mot_selected.name} is selected.")   # <class 'toydaq.devices.Motor'>.name
         # access the ttk.Entry 
         out_strings=[]
         for column in self.motorpanel.motor_inputTexts:
@@ -196,7 +218,7 @@ class View():
             # Both options possible, get only one, I go for the Variables of the ttk.Entry
             #print(f"This is the current Variable for {self.motorpanel.entries[column]}: {self.motorpanel.entriesValues[column].get()}")
             #print("This is the current value via.get on the ttk.Entry", self.motorpanel.entries[column].get())
-        showinfo("Current scan settings", f"Motor: {curr_mot_selected}, {str(out_strings)[1:-1]}")
+        showinfo("Current scan settings", f"Motor: {curr_mot_selected.name}, {str(out_strings)[1:-1]}")
         
     def retrieve_scan_settings(self):
         """ Collect scan settings """
