@@ -142,7 +142,6 @@ class View():
             else:
                 print('Current selected motor ', self.sidepanel.motor_selCombo.get(), type(self.sidepanel.motor_selCombo.get()))
 
-
                 #returns only the motor name, i.e. str
                 #return self.sidepanel.motor_selCombo.get()   #string : MY-TINY-MOTOR 
                 # returns a motor object
@@ -199,7 +198,7 @@ class View():
         """ Current motor, start, stop, stepsize is shown """
     
         try:
-            curr_mot_selected=self.get_motor_selection()  #curre_mot_selected of <class 'toydaq.devices.Motor'>
+            curr_mot_selected=self.get_motor_selection()  #curr_mot_selected of <class 'toydaq.devices.Motor'>
             if curr_mot_selected is None:
                 raise ValueError("No motor selected")
         except ValueError as e:
