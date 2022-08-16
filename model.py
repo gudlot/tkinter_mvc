@@ -35,8 +35,6 @@ class Model():
                 f"Motor names must be unique: {name} is already a defined motor."
             )
 
-        # Allow any casing
-        units = units.lower()
         self._check_valid_units(units)
         print(f"Adding motor {name} with units {units}")
         self.motors[name] = Motor(name, units)
