@@ -1,5 +1,5 @@
 from toydaq import scan_iter
-
+from tkinter.messagebox import *
 
 #from threading import Thread
 from tqdm import tqdm
@@ -81,33 +81,38 @@ class Controller():
         stop= scan_values["Stop"].get()
         stepsize= scan_values["Stepsize"].get()
        
-        #check
-        try:
-            if stepsize > np.absolute(stop - start):
-                raise ValueError("Stepszie larger than total scan range.")
+        #check   #Here it would be better to write these checks compacter, see first check. Also the other functions miss return. But not good that tkinter appears here directly in the controller.
+        # You need functions for the inview that you can call!
+        #try:
+        if stepsize > np.absolute(stop - start):
+        #        raise ValueError("Stepszie larger than total scan range.")
             
-        except ValueError as e:
-            showwarning(title='Stepsize too large.', message="Stepszie larger than total scan range.")
+        #except ValueError as e:
+            self.view.show_warning_window(title='Stepsize too large.', message="Stepszie larger than total scan range.")
             return
 
         try:
             if start > stop:
                 raise ValueError("Start>Stop")
         except ValueError as e:
-            showwarning(title="Start>Stop", message="Please select start < stop.")
+            self.view.show_warning_window(title="Start>Stop", message="Please select start < stop.")
+            return
 
+            
         try:
             if stepsize < 0:
                 raise ValueError("Stepsize negative.")
 
         except ValueError as e:
-            showwarning(title="Stepsize negative." , message="Choose positive Stepsize.") 
+            self.view.show_warning_window(title="Stepsize negative." , message="Choose positive Stepsize.")
+            return
         
         try:
             if stepsize==0:
                 raise ValueError(f"Stepsize is {stepsize}")
         except ValueError as e:
-            showwarning(title=f"Stepsize {stepsize}." , message="Choose different Stepsize.") 
+            self.view.show_warning_window(title=f"Stepsize {stepsize}." , message="Choose different Stepsize.")
+            return
 
 
         scan_dict={}
