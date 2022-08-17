@@ -219,7 +219,7 @@ class View():
             #print("This is the current value via.get on the ttk.Entry", self.motorpanel.entries[column].get())
         showinfo("Current scan settings", f"Motor: {curr_mot_selected.name}, {str(out_strings)[1:-1]}")
         
-    def retrieve_scan_settings(self):
+    def retrieve_scan_settings(self):   #this could be a property decorator
         """ Collect scan settings """
 
         mot_selected=self.get_motor_selection()
@@ -282,6 +282,10 @@ class View():
     def no_camera_selected(self):
         """ Warning no camera selected """
         showwarning(title='1D scan warning', message="No camera selected for 1D scan.")
+
+    def show_warning_window(self, title, message):
+        """ Triggers a tkinter showarning message window. Offers more flexibility."""
+        showwarning(title=title, message=message)
 
 class SidePanel():
     """ This class contains the buttons, the combobox, the ouput label for the motor, label frames for diodes """
