@@ -41,7 +41,6 @@ My requirements are listed in requirements.txt.
 Lots of possibilities on the market:
 - easygui
 - tkinker
-- idk
 - qt, pyqt:
  - Shiny for Python
  - flask
